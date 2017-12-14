@@ -1,126 +1,104 @@
-![Kuro Bot](http://i.imgur.com/ohS1PwH.png)
+#Kuro Bot
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/kanadeko/Kuro/master/LICENSE)
 [![Chat / Support](https://img.shields.io/badge/Chat%20%2F%20Support-discord-7289DA.svg?style=flat-square)](https://discord.gg/5g6vgwn)
 
-Kuro is an easy to use self bot that is shifting more and more into a framework while preserving its ease of use. It sits on top of [discord.js](https://github.com/hydrabolt/discord.js/).
-NodeJS version 6+ is ***REQUIRED***. [Installing Node.js](https://nodejs.org/en/download/package-manager/)
+Kuro est un bot facile à utiliser qui se déplace de plus en plus dans un framework tout en préservant sa facilité d'utilisation. Il se trouve au-dessus de [discord.js](https://github.com/hydrabolt/discord.js/). La version 6+ de NodeJS est ***OBLIGATOIRE***. [Installation de Node.js](https://nodejs.org/en/download/package-manager/)
 
 [> Check this video to see how it works!](https://my.mixtape.moe/pwcrem.webm)
 
-### v4.1.0 Important Notes:
-This only applies if you are upgrading from a previous version.
-In order to make the chat less jumpy and contribute with data caps and mobile users, sticker now behave differently than they did before. Stickers get uploaded to [safe.moe](https://safe.moe) now so they can be used inside an embed. By using embeds, kuro can now edit your message to display the sticker instead of deleting it and sending a new one. Even though that embeds are ugly this makes it so everyone can see your sticker faster by allowing caching of the URL on Discord's side.
+>## v4.1.0 Notes Importantes:
+>Cela ne s'applique que si vous effectuez une mise à niveau à partir d'une version précédente.
+>Afin de rendre le tchat moins instable et de contribuer avec les limites de données et les >utilisateurs mobiles, les autocollants se comportent maintenant différemment. Les >autocollants sont maintenant téléchargés sur [safe.moe](https://safe.moe) et utilisés dans >une embed. En utilisant des embeds, kuro peut maintenant éditer votre message pour >afficher l'autocollant au lieu de le supprimer et d'en envoyer un nouveau. Même si ces >embeds sont laids, cela permet à tout le monde de voir votre autocollant plus rapidement en >permettant la mise en cache de l'URL du côté de Discord.
+>
+>Donc, si vous effectuez une mise à niveau vers une nouvelle version, exécutez `!s migrate` pour migrer vos autocollants vers le nouveau système d'intégration.
 
-So if you are upgrading to a new version, please run `!s migrate` to migrate your stickers to the new embed system.
-
-## Installing:
-1. Ensure you have node installed
-2. Run `npm i -g kuro-cli`
-3. Run `kuro-cli`
+## Installation:
+1. Assurez-vous que node est installé
+2. Lancer `npm i -g kuro-cli`
+3. Exécuter `kuro-cli`
 4. Follow the instructions on screen
 
-[kuro-cli](https://github.com/Pitu/kuro-cli) is a utility that will install and manage your Kuro installation. Whenever there's a new version available you can run `kuro-cli` and it will download, upgrade, update dependencies and restart automatically. Some options are not covered on the cli just yet, so you can go ahead and open `config.json` to look and modify them if you want.
+[kuro-cli](https://github.com/Pitu/kuro-cli) est un utilitaire qui va installer et gérer votre installation Kuro. Chaque fois qu'une nouvelle version est disponible, vous pouvez lancer `kuro-cli` et télécharger, mettre à jour, mettre à jour les dépendances et redémarrer automatiquement. Certaines options ne sont pas encore couvertes sur le cli, donc vous pouvez aller de l'avant et ouvrir `config.json`  pour les regarder et les modifier si vous le souhaitez. 
 
-If you don't want to use `kuro-cli`, simply clone the repo, `npm install`, rename the `config.sample.json` to `config.json` and modify it's values with your data.
+Si vous ne voulez pas utiliser `kuro-cli`, il vous suffit de cloner le repo, `npm install`, de renommer `config.sample.json` en `config.json`et de modifier ses valeurs avec vos données.
 
 ## Modules:
-This new update brings every command in the form of separate modules. Inside each module you can make up the stuff you want, and you can execute it by calling the module name without the extension. There's a sample module ready for you to duplicate called `base.js`.
+Cette nouvelle mise à jour apporte chaque commande sous la forme de modules séparés. À l'intérieur de chaque module, vous pouvez créer ce que vous voulez, et vous pouvez l'exécuter en appelant le nom du module sans l'extension. Il y a un exemple de module prêt à être dupliqué appelé `base.js`.
 
-Example of a simple module with no dependencies that returns the server's member count on which you send the command:
+Exemple d'un module simple sans dépendances qui renvoie le nombre de membres du serveur sur lequel vous envoyez la commande:
 ```javascript
 exports.run = function(msg, args) {
   msg.delete()
   msg.channel.send('', {
     'embed': {
       'title': msg.guild.name,
-      'description': `Member Count: ${msg.guild.memberCount}`,
+      'description': `Nombre de membres: ${msg.guild.memberCount}`,
       'color': 15473237
     }
   })
 }
 ```
 
-Pretty easy stuff.
-If you want me to include a module you've made, send a PR with your stuff and I'll look at it.
+Assez facile.
+Si vous voulez que inclure un module que vous avez fait,  envoyez un PR à [^1] [Pitu](https://github.com/Pitu) avec votre module.
 
-## Bundled modules
+[^1]: Créateur de ***Kuro***.
 
-Each module has detailed instructions inside their own files. Take a look at them for further details on how to use.
+## Modules groupés
 
-- `anime <name of the anime>`
-  Shows the first occurence of the searched anime on kitsu.io and returns a summary of it
+Chaque module a des instructions détaillées dans leurs propres fichiers. Jetez y un oeil pour plus de détails sur la façon de les utiliser.
 
-- `emote [emote]`
-  Shows information about a custom emote.
+- `anime <name of the anime>` Affiche la première occurrence de l'anime recherché sur kitsu.io et renvoie un résumé de celui-ci (en anglais).
 
-- `eval [expression]`
-  A module to eval expressions. Dangerous stuff, don't use unless pretty sure of what you're doing.
+- `emote [emote]` Affiche des informations sur une emote personnalisée.
 
-- `eyes`
-  A module that edits a message to add the effect of animated eyes. You probably should update the emoji name if you're not on Pilar's server.
+- `eval [expression]` Un module pour évaluer les expressions. N'utilisez pas des choses dangereuses à moins d'être sûr de ce que vous faites.
 
-- `flip <this is amazing>`
-  sllɐqǝzɐɯɐ sı sıɥʇ
+- `eyes` Un module qui édite un message pour ajouter l'effet des yeux animés. Vous devriez probablement mettre à jour le nom emoji si vous n'êtes pas sur le serveur de Pilar.
 
-- `getcommand [module]`
-  Sends the specified module's source to the chat. Ex: `!getcommand base` would print `base.js` contents to chat.
+- `flip <this is amazing>` = "sllɐqǝzɐɯɐ sı sıɥʇ" 
 
-- `gifspeed [url]`
-  Removes delay between frames of the given gif url and uploads it.
+- `getcommand [module]` Envoie la source du module spécifié au tchat. Ex: `!getcommand base` renvoie le contenue de `base.js` dans le tchat.
 
-- `google <some stupid question>`
-  Creates a link to Google with your query when someone asks stupid questions
+- `gifspeed [url]` Supprime le délai entre les images de l'URL gif donnée et le télécharge.
 
-- `mal`
-  Prints information about your MyAnimeList username.
+- `google <some stupid question>` Crée un lien vers Google avec votre requête quand quelqu'un pose des questions stupides.
 
-- `manga <name of the manga>`
-  Shows the first occurence of the searched manga on kitsu.io and returns a summary of it
+- `mal` Imprime des informations sur votre nom d'utilisateur MyAnimeList.
 
-- `members`
-  Shows the server's member count.
+- `manga <nom du manga>` Affiche la première occurrence du manga recherché sur kitsu.io et retourne un résumé de celui-ci
 
-- `ping`
-  Simple tool to check delay between your bot and Discord.
+- `members` Affiche le nombre de membres du serveur.
 
-- `playing [message]`
-  Change your `playing` status on Discord to the specified string. (Note you wont be able to see it due to a Discord limitation).
+- `ping` Outil simple pour vérifier le délai entre votre bot et Discord.
 
-- `purge [number of messages]`
-  Grabs the supplied amount of messages from chat and deletes those that are yours.
+- `playing [message]`Change ton statut `playing` sur Discord pour la chaîne spécifiée. (Notez que vous ne pourrez pas le voir en raison d'une limitation Discord).
 
-- `reboot`
-  Reboots the Kuro. (Only works if using pm2|forever).
+- `purge [nombre de messages]` Récupère le nombre de messages fournis par chat et supprime ceux qui sont à vous.
 
-- `reload`
-  Reloads all the modules (Useful when developing).
+- `reboot` Redémarre le Kuro. (Fonctionne uniquement si vous utilisez pm2 | forever).
 
-- `react [message]`
-  React to the last message with regional characters. a-z 0-9, no spaces.
+- `reload` Recharge tous les modules (Utile en cours de développement).
 
-- `regional [message]`
-  Sends a message using regional character emojis.
+- `react [message]` Réagir au dernier message avec des caractères régionaux. a-z 0-9, pas d'espaces.
 
-- `s [name] | [add|del|ren]`
-  A module to manage stickers like Telegram does. Upload a sticker with a given name, and then make kuro paste it when you trigger the command.
+- `regional [message]` Envoie un message en utilisant le caractère régional emojis.
 
-- `smug`
-  Displays smug looking anime girls with patronizing looks on their faces.
+- `s [nom] | [add|del|ren]` Un module pour gérer les autocollants comme Telegram. Téléchargez un autocollant avec un nom donné, puis faites kuro le coller lorsque vous déclenchez la commande.
 
-- `stats`
-  Displays an embed with statistics.
+- `smug` Affiche des filles anime à l'air suffisant avec des regards condescendants sur leurs visages.
 
-- `status [online|idle|dnd|offline]`
-  The status you want to appear as whenever you're offline, since using Kuro will make discord think you're always online.
+- `stats` Affiche un embed avec des statistiques.
 
-- `tag [name] | [add|del|ren]`
-  Saves the given text into a tag for later usage. For example `tag add kuro https://github.com/kanadeko/Kuro` would print `https://github.com/kanadeko/Kuro` every time I do `tag kuro`
+- `status [online|idle|dnd|offline]` Le statut que vous voulez afficher lorsque vous êtes hors ligne, car l'utilisation de Kuro fera penser à Discord que vous êtes toujours en ligne.
 
-- `tl`
-  Tries to translate the last message to english.
+- `tag [name] | [add|del|ren]` Enregistre le texte donné dans une balise pour une utilisation ultérieure. Par exemple `tag add kuro https://github.com/kanadeko/Kuro` afficherait ` https://github.com/kanadeko/Kuro` à chaque fois que je fais `tag kuro`
 
-- `uptime`
-  Displays how long the bot has been running.
+- `tl` Essaie de traduire le dernier message en anglais.
 
-- `user <@user>`
-  Displays information about the tagged user
+- `uptime` Affiche la durée d'exécution du bot.
+
+- `user <@user>` Affiche des informations sur l'utilisateur marqué
+
+  ​
+  ![Kuro Bot](http://i.imgur.com/ohS1PwH.png)
